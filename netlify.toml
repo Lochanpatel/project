@@ -1,0 +1,21 @@
+# Force redeploy - 2025-08-26T09:50:31Z
+[build]
+  command = "npm run build:client"
+  functions = "netlify/functions"
+  publish = "dist/spa"
+
+
+[functions]
+  node_bundler = "esbuild"
+  
+[[redirects]]
+  force = true
+  from = "/api/*"
+  status = 200
+  to = "/.netlify/functions/api/:splat"
+
+# SPA fallback - serve index.html for all client-side routes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
